@@ -2,6 +2,7 @@
   import Modal from "./modal.svelte";
 
   export let maxwidth = 800;
+  export let dangerMode = false;
 
   let mainmodal;
 
@@ -27,7 +28,7 @@
   };
 </script>
 
-<Modal bind:this={mainmodal} on:close={confirm} {maxwidth}>
+<Modal bind:this={mainmodal} on:close={confirm} {maxwidth} {dangerMode}>
   <slot name="header" {confirm} />
   {@html alertContent}
   <slot name="footer" {confirm} />

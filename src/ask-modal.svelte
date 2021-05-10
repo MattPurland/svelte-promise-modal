@@ -3,6 +3,7 @@
   import { writable } from "svelte/store";
 
   export let maxwidth = 800;
+  export let dangerMode = false;
 
   let mainmodal;
 
@@ -39,6 +40,6 @@
   };
 </script>
 
-<Modal bind:this={mainmodal} on:close={cancel} {maxwidth}>
+<Modal bind:this={mainmodal} on:close={cancel} {maxwidth} {dangerMode}>
   <slot {datastore} {confirm} {cancel} />
 </Modal>

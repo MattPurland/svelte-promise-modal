@@ -5,7 +5,8 @@
 
   let show;
 
-  export let maxwidth = 1200;
+  export let maxwidth;
+  export let dangerMode;
 
   export const open = () => {
     show = true;
@@ -18,6 +19,8 @@
   let dispatch = createEventDispatcher();
 
   function handleClose() {
+    if (dangerMode) return;
+
     dispatch("close");
     close();
   }
