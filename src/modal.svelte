@@ -56,19 +56,9 @@
     in:fade
     out:fade={{ delay: 200 }}
     bind:this={wrapper}
-    on:click={() => {
-      handleClose();
-    }}
   >
-    <CenterBox>
-      <div
-        in:trans={transOptions}
-        out:trans={transOptions}
-        class="modal"
-        on:click={(event) => {
-          event.stopPropagation();
-        }}
-      >
+    <CenterBox {dangerMode} bind:show>
+      <div in:trans={transOptions} out:trans={transOptions} class="modal">
         <slot />
       </div>
     </CenterBox>

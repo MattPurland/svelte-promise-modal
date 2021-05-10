@@ -1,18 +1,32 @@
 <script>
-  import { onMount } from 'svelte';
-  import OverlayScrollbars from 'overlayscrollbars';
+  import { createEventDispatcher } from "svelte";
 
-  let centerBox;
+  export let dangerMode, show;
 
-  onMount(() => {
-      // OverlayScrollbars(centerBox, {
-      //     scrollbars: {
-      //         autoHide: "scroll"
-      //     }
-      // });
-  });
+  let dispatch = createEventDispatcher(),
+    centerBox;
+
+  function handleClose(event) {
+    // If dangerMode, do nothing
+    if (dangerMode) return;
+
+    const eventTarget =
+      event.path && event.path.length > 0 ? event.path[0] : event.target;
+
+    // Event target isn't the centerbox, do nothing
+    if (eventTarget !== centerBox) return;
+
+    // Otherwise close
+    dispatch("close");
+    show = false;
+  }
 </script>
 
-<div {...$$props} class="center-wrapper {$$props.class || ''}" bind:this={centerBox}>
+<div
+  {...$$props}
+  class="center-wrapper {$$props.class || ''}"
+  bind:this={centerBox}
+  on:click={handleClose}
+>
   <slot />
 </div>
