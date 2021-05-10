@@ -38,7 +38,7 @@
 
   // Move modal to the root of the body
   $: if (wrapper) {
-    document.body.appendChild(wrapper);
+    //document.body.appendChild(wrapper);
   }
 </script>
 
