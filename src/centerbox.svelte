@@ -1,28 +1,18 @@
-<div {...$$props} class="center-wrapper {$$props.class || ''}">
+<script>
+  import { onMount } from 'svelte';
+  import OverlayScrollbars from 'overlayscrollbars';
+
+  let centerBox;
+
+  onMount(() => {
+      OverlayScrollbars(centerBox, {
+          scrollbars: {
+              autoHide: "scroll"
+          }
+      });
+  });
+</script>
+
+<div {...$$props} class="center-wrapper {$$props.class || ''}" bind:this={centerBox}>
   <slot />
 </div>
-
-<style>
-  .center-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
-  }
-  .center-wrapper::before {
-    content: "";
-    width: 100vw;
-    flex: 1 0 100px;
-    visibility: hidden;
-    margin-bottom: auto;
-  }
-  .center-wrapper::after {
-    content: "";
-    width: 100vw;
-    flex: 1 0 100px;
-    visibility: hidden;
-    margin-top: auto;
-  }
-</style>

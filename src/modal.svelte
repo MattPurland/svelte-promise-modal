@@ -3,10 +3,21 @@
   import { createEventDispatcher } from "svelte";
   import { fade, fly } from "svelte/transition";
 
-  let show;
+  let show, wrapper;
 
-  export let maxwidth;
-  export let dangerMode;
+  export let cssClass = "",
+    transition = "fly",
+    dangerMode;
+
+  let trans,
+    transOptions = {};
+
+  if (transition == "fly") {
+    trans = fly;
+    transOptions = { y: 200 };
+  } else if (transition == "fade") {
+    trans = fade;
+  }
 
   export const open = () => {
     show = true;
@@ -22,7 +33,12 @@
     if (dangerMode) return;
 
     dispatch("close");
-    close();
+    show = false;
+  }
+
+  // Move modal to the root of the body
+  $: if (wrapper) {
+    document.body.appendChild(wrapper);
   }
 </script>
 
@@ -36,17 +52,19 @@
 
 {#if show}
   <div
-    class="modal-wrapper"
+    class="modal-wrapper {cssClass}"
     in:fade
     out:fade={{ delay: 200 }}
-    on:click={handleClose}
+    bind:this={wrapper}
+    on:click={() => {
+      handleClose();
+    }}
   >
-    <CenterBox style="overflow-y:scroll">
+    <CenterBox>
       <div
-        in:fly={{ y: 200 }}
-        out:fly={{ y: 200 }}
+        in:trans={transOptions}
+        out:trans={transOptions}
         class="modal"
-        style={`max-width: ${maxwidth}px`}
         on:click={(event) => {
           event.stopPropagation();
         }}
@@ -56,24 +74,3 @@
     </CenterBox>
   </div>
 {/if}
-
-<style>
-  .modal-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 99;
-  }
-  .modal {
-    background: white;
-    box-sizing: border-box;
-    padding: 40px;
-    width: 90vw;
-    border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    z-index: 100;
-  }
-</style>
