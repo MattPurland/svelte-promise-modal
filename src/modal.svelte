@@ -19,6 +19,8 @@
 
   function handleClose() {
     dispatch("close");
+    //show = false;
+    close();
   }
 </script>
 
@@ -47,7 +49,6 @@
   on:keydown={event => {
     if (event.which == 27 && show == true) {
       handleClose();
-      show = false;
     }
   }} />
 
@@ -58,7 +59,6 @@
     out:fade={{ delay: 200 }}
     on:click={() => {
       handleClose();
-      show = false;
     }}>
     <CenterBox style="overflow-y:scroll">
       <div
