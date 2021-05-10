@@ -19,10 +19,40 @@
 
   function handleClose() {
     dispatch("close");
-    //show = false;
     close();
   }
 </script>
+
+<svelte:window
+  on:keydown={(event) => {
+    if (event.which == 27 && show == true) {
+      handleClose();
+    }
+  }}
+/>
+
+{#if show}
+  <div
+    class="modal-wrapper"
+    in:fade
+    out:fade={{ delay: 200 }}
+    on:click={handleClose}
+  >
+    <CenterBox style="overflow-y:scroll">
+      <div
+        in:fly={{ y: 200 }}
+        out:fly={{ y: 200 }}
+        class="modal"
+        style={`max-width: ${maxwidth}px`}
+        on:click={(event) => {
+          event.stopPropagation();
+        }}
+      >
+        <slot />
+      </div>
+    </CenterBox>
+  </div>
+{/if}
 
 <style>
   .modal-wrapper {
@@ -44,33 +74,3 @@
     z-index: 100;
   }
 </style>
-
-<svelte:window
-  on:keydown={event => {
-    if (event.which == 27 && show == true) {
-      handleClose();
-    }
-  }} />
-
-{#if show}
-  <div
-    class="modal-wrapper"
-    in:fade
-    out:fade={{ delay: 200 }}
-    on:click={() => {
-      handleClose();
-    }}>
-    <CenterBox style="overflow-y:scroll">
-      <div
-        in:fly={{ y: 200 }}
-        out:fly={{ y: 200 }}
-        class="modal"
-        style={`max-width: ${maxwidth}px`}
-        on:click={event => {
-          event.stopPropagation();
-        }}>
-        <slot />
-      </div>
-    </CenterBox>
-  </div>
-{/if}

@@ -18,7 +18,7 @@
     mainmodal.close();
   };
 
-  export const alert = async text => {
+  export const alert = async (text) => {
     alertContent = text;
     mainmodal.open();
     return new Promise((resolve, reject) => {

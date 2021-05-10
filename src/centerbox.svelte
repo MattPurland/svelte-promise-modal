@@ -1,3 +1,7 @@
+<div {...$$props} class="center-wrapper {$$props.class || ''}">
+  <slot />
+</div>
+
 <style>
   .center-wrapper {
     display: flex;
@@ -22,7 +26,3 @@
     margin-top: auto;
   }
 </style>
-
-<div {...$$props} class="center-wrapper {$$props.class || ''}">
-  <slot />
-</div>

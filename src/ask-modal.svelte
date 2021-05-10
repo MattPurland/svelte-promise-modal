@@ -29,7 +29,7 @@
     mainmodal.close();
   };
 
-  export const ask = async defaultValues => {
+  export const ask = async (defaultValues) => {
     datastore.set(defaultValues || {});
     mainmodal.open();
     return new Promise((resolve, reject) => {
