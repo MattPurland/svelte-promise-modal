@@ -5,11 +5,11 @@
   let centerBox;
 
   onMount(() => {
-      OverlayScrollbars(centerBox, {
-          scrollbars: {
-              autoHide: "scroll"
-          }
-      });
+      // OverlayScrollbars(centerBox, {
+      //     scrollbars: {
+      //         autoHide: "scroll"
+      //     }
+      // });
   });
 </script>
 
