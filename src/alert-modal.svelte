@@ -3,7 +3,8 @@
 
   export let cssClass,
     transition,
-    dangerMode = false;
+    dangerMode = false,
+    maxWidth;
 
   let mainmodal;
 
@@ -35,6 +36,7 @@
   {transition}
   {cssClass}
   {dangerMode}
+  {maxWidth}
 >
   <slot name="header" {confirm} />
   {@html alertContent}

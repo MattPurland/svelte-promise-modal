@@ -7,7 +7,8 @@
 
   export let cssClass = "",
     transition = "fly",
-    dangerMode;
+    dangerMode,
+    maxWidth;
 
   let trans,
     transOptions = {};
@@ -58,7 +59,7 @@
     bind:this={wrapper}
   >
     <CenterBox {dangerMode} bind:show>
-      <div in:trans={transOptions} out:trans={transOptions} class="modal">
+      <div in:trans={transOptions} out:trans={transOptions} class="modal" style="{maxWidth ? `max-width: ${maxWidth}px` : ''}">
         <slot />
       </div>
     </CenterBox>
